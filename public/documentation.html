@@ -9,13 +9,113 @@
     <body>
         <h2>Objectives of myFlix API</h2>
         <p>To build the server-side component of a “movies” web application.  The web application will provide users with access to information about different movies, directors, and genres. Users will be able to sign up, update their personal information, and create a list of their favorite movies.</p>
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>ENDPOINT LOGIC</th>
+                    <th>ENDPOINT URL</th>
+                    <th>HTTP METHDOD</th>
+                    <th>REQUEST PARAMETERS</th>
+                    <th>REQUEST DATA</th>
+                    <th>RESPONSE DATA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td>Get a List of All Movies</td>
+                  <td>/movies</td>
+                  <td>GET</td>
+                  <td>None</td>
+                  <td>None</td>
+                  <td>A JSON Object holding data about all the movies</td>
+                </tr>
+          
+                <tr>
+                  <td>Get Data of Single Movie</td>
+                  <td>/movies/[Title]</td>
+                  <td>GET</td>
+                  <td>Movie Title</td>
+                  <td>None</td>
+                  <td>A JSON Object holding data about a specific movie.</td>
+                </tr>
+          
+                <tr>
+                  <td>Get a Genre information by Its Title</td>
+                  <td>/movies/genres/[Title]</td>
+                  <td>GET</td>
+                  <td>Genre Title</td>
+                  <td>None</td>
+                  <td>A JSON Object holding data about a specific genre.</td>
+                </tr>
+
+                <tr>
+                  <td>Get a Directors information by Their Namee</td>
+                  <td>/movies/directors/[Name]</td>
+                  <td>GET</td>
+                  <td>Director Name</td>
+                  <td>None</td>
+                  <td>A JSON Object holding data about a specific director.</td>
+                </tr>
+          
+                <tr>
+                  <td>Register a New User</td>
+                  <td>/users</td>
+                  <td>POST</td>
+                  <td>JSON</td>
+                  <td>
+                    A JSON Object holding data of a user to be created.
+                    <code><strong>Sample</strong> <br>
+                      { <br>
+                      "userName": "Jose", <br>
+                      "password": "Password1234", <br>
+                      "emailAddress": "Jose@cf.com" <br>
+                      }
+                    </code>
+                </td>
+                  <td>
+                    A text message with the new user Id indicating the User was successfully created.
+                  </td>
+                </tr>
+          
+                <tr>
+                  <td>Allow User to Update Information</td>
+                  <td>/users/[userName]</td>
+                  <td>PUT</td>
+                  <td>User Name</td>
+                  <td>None</td>
+                  <td>A text message indicating the User Information was successfully updated.</td>
+                </tr>
+          
+                <tr>
+                  <td>Allow User to Add a Movie to Their Favorite List</td>
+                  <td>/users/favorites/[Username]/[MovieTitle]</td>
+                  <td>POST</td>
+                  <td>User Name and Movie Title</td>
+                  <td>None</td>
+                  <td>A text message indicating the Movie was successfully added to the Users Favorite List.</td>
+                </tr>
+          
+                <tr>
+                  <td>Allow User to Add a Movie to Their Favorite List</td>
+                  <td>/users/favorites/[Username]/[MovieTitle]</td>
+                  <td>DELETE</td>
+                  <td>User Name and Movie Title</td>
+                  <td>None</td>
+                  <td>A text message indicating the Movie was successfully removed from the Users Favorite List.</td>
+                </tr>
+          
+                <tr>
+                  <td>Allow Existing User to Deregister</td>
+                  <td>/users/[Id]</td>
+                  <td>DELETE</td>
+                  <td>Unique Identifier</td>
+                  <td>None</td>
+                  <td>A text message indicating the user was successfully deleted.</td>
+                </tr>
+              </tbody>
+
+        </table>
+    
     </body>
 </html>
-
-
-
-
-
-
-
-

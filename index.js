@@ -1,7 +1,7 @@
-const express = require('express'), morgan = require('morgan');
+const express = require('express'), morgan = require('morgan'), uuid = require('uuid');
 const app = express();
 
-let topTenMovies = [
+let movies = [
     {
       title: '300',
       released: 2007,
@@ -67,18 +67,78 @@ let topTenMovies = [
 app.use(morgan('common'));
 app.use(express.static('public'));
 
-// GET requests 
+
+// GET requests for the home/root page
 app.get('/', (req, res) => {
     res.send('Welcome to myFlix! Your Favourite Movie Encyclopedia');
   });
 
+// GET request for the webpage with documentaton for the Endpoints
 app.get('/documentation', (req, res) => {                  
   res.sendFile('public/documentation.html', { root: __dirname });
 });
   
+// GET request to return all the Top Ten Movies to the Client
 app.get('/movies', (req, res) => {
-    res.json(topTenMovies);
+    res.json(movies);
   });
+
+// GET request to return a single movie with a specific title
+app.get('/movies/:title', (req, res) => {
+  let movie = movies.find((movie) => {
+    return movie.title === req.params.title;
+  });
+  if(movie){
+    res.status(200).json(movie);
+  }
+  else{
+    res.status(400).send('No movie with this title exists in the Top Ten Movies');
+  }
+});
+
+// GET request to return movies with a specific genre title
+app.get('/movies/genres/:title', (req, res) => {
+  res.send(`Successfull! List of Movies with ${req.params.title} Genre Title.`);
+});
+
+// GET request to return a director with a specific name
+app.get('/movies/directors/:name', (req, res) => {
+  let director = movies.find((movie) => {
+    return movie.director === req.params.name;
+});
+if(director) {
+    res.status(200).json(director);
+} 
+else {
+    res.status(400).send('No director with this name exists for the Top Ten Movies');
+}
+});
+
+// POST request to Add new User 
+app.post('/users', (req, res) => {
+  res.status(201).send(`Successfull! User Account has been Created.`);
+});
+
+//PUT request to update User details using Username as Identifier
+app.put('/users/:userName', (req, res) => {
+  res.status(201).send(`Successfull! Account with username: ${req.params.userName} has been updated`);
+});
+
+//POST request to Allow users to add a movie to their list of favorites 
+app.post('/users/favorites/:userName/:movieTitle', (req, res) => {
+  res.send(`Successfull! ${req.params.userName} added ${req.params.movieTitle} to their favourites list`);
+});
+
+//DELETE request to Allow users to add a movie to their list of favorites 
+app.delete('/users/favorites/:userName/:movieTitle', (req, res) => {
+  res.send(`Successfull! ${req.params.userName} removed ${req.params.movieTitle} from their favourites list`);
+});
+
+
+// DELETE request to Delete a User Account 
+app.delete('/users/:id', (req, res) => {
+  res.send(`Successfull! User with ID :${req.params.id} has been deleted.`);
+});
 
 //Error Handler
 app.use((err, req, res, next) => {
@@ -89,4 +149,4 @@ app.use((err, req, res, next) => {
 // listen for requests on port 8080
 app.listen(8080, () => {
     console.log('MyFlix App is listening on port 8080.');
-  });
+});
